@@ -152,8 +152,17 @@ select distinct id_cliente, id_tienda
 
 ------------------- EMPLEADO ----------------------
 select * from empleado;
+select * from pago_empleado;
+select * from tienda;
 
-
+insert into empleado(nombre, direccion, email, status, usuario, contrasenia, tienda_direccion_trabajo, pago_empleado_id_pago, tienda_id_tienda)
+select distinct NOMBRE_EMPLEADO, DIRECCION_EMPLEADO, CORREO_EMPLEADO, EMPLEADO_ACTIVO, USUARIO_EMPLEADO, CONTRASENA_EMPLEADO, TIENDA_EMPLEADO, id_pago, id_tienda
+from( select distinct  t.NOMBRE_EMPLEADO, t.DIRECCION_EMPLEADO, t.CORREO_EMPLEADO, t.EMPLEADO_ACTIVO, t.USUARIO_EMPLEADO, t.CONTRASENA_EMPLEADO, t.TIENDA_EMPLEADO, pagem.id_pago, tie.id_tienda
+from temporal t, pago_empleado pagem, tienda tie
+where t.TIENDA_EMPLEADO =  tie.DIRECCION_TIENDA
+and tie.id_tienda is not null
+order by tie.id_tienda
+);
 
 
 
